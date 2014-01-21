@@ -1,25 +1,187 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.407etr</groupId>
-  <artifactId>fastlane</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+	<groupId>com.407etr</groupId>
+	<artifactId>fastlane</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-  <name>fastlane</name>
-  <url>http://maven.apache.org</url>
+	<name>${project.artifactId}</name>
+	<url>${project.organization.url}</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<company-name>407-ETR</company-name>
+		<company-address>6300 Steeles Ave. W</company-address>
+		<company-city>Woodbridge</company-city>
+		<company-province>Ontario</company-province>
+		<junit-version>4.11</junit-version>
+	</properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
+	</dependencies>
+
+	<organization>
+		<name>407ETR</name>
+		<url>http://www.407ETR.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>danno</id>
+			<name>Daniel Hinojosa</name>
+			<email>dhinojosa@evolutionnext.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<build>
+		<defaultGoal>clean install</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.16</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<configuration>
+					<target name="default">
+						<echo message="${project.artifactId} with basedir: ${project.basedir}" />
+					</target>
+				</configuration>
+				<executions>
+					<execution>
+						<id>antrun-clean</id>
+						<phase>clean</phase>
+						<configuration>
+							<target name="ant-clean">
+								<echo message="Cleaning project ${project.artifactId}" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>antrun-compile</id>
+						<phase>compile</phase>
+						<configuration>
+							<target name="ant-compile">
+								<echo message="Compiling project ${project.artifactId}" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+				<executions>
+					<execution>
+						<id>init-tree</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>tree</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>exec-verify</id>
+						<phase>verify</phase>
+						<configuration>
+							<mainClass>com.etr407.App</mainClass>
+						</configuration>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>assemble-alternate-files</id>
+						<phase>package</phase>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>
+									bin
+								</descriptorRef>
+								<descriptorRef>
+									jar-with-dependencies
+								</descriptorRef>
+									<descriptorRef>
+									src
+								</descriptorRef>
+						        <descriptorRef>
+									project
+								</descriptorRef>
+							</descriptorRefs>
+						</configuration>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
