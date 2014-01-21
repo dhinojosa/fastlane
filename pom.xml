@@ -10,6 +10,23 @@
 	<name>${project.artifactId}</name>
 	<url>${project.organization.url}</url>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>localhost_snapshots</id>
+			<name>Localhost Nexus Snapshots</name>
+			<url>
+			http://localhost:8081/nexus/content/repositories/snapshots/
+			</url>
+		</snapshotRepository>
+		<repository>
+		    <id>localhost_releases</id>
+		    <name>Localhost Nexus Releases</name>
+		    <url>
+		    http://localhost:8081/nexus/content/repositories/releases/
+		    </url>
+		</repository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<company-name>407-ETR</company-name>
@@ -17,7 +34,6 @@
 		<company-city>Woodbridge</company-city>
 		<company-province>Ontario</company-province>
 		<junit-version>4.11</junit-version>
-
 		<db.driver>com.mysql.Driver</db.driver>
 		<db.url>jdbc:mysql://localhost:3306/fastlane</db.url>
 	</properties>
@@ -224,6 +240,24 @@
 						</executions>
 					</plugin>
 				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>linuxOnly</id>
+			<activation>
+				<os>
+					<family>Linux</family>
+				</os>
+				<property>
+					<name>junit-version</name>
+					<value>4.11</value>
+				</property>
+				<jdk>1.5</jdk>
+			</activation>
+			<build>
+				<finalName>
+	            ${project.artifactId}-${project.version}-Windows
+	          </finalName>
 			</build>
 		</profile>
 	</profiles>
