@@ -1,0 +1,6 @@
+<database-config>
+   <driver>${db.driver}</driver>
+   <url>${db.url}</url>
+   <username>${db.username}</username>
+   <password>${db.password}</password>
+</database-config>
